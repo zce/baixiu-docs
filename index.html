@@ -7,6 +7,7 @@
     html, body {
       margin: 0;
       height: 100%;
+      overflow: hidden;
     }
     body {
       display: flex;
@@ -16,24 +17,34 @@
       flex: 1;
     }
     aside {
+      overflow-y: scroll;
+      padding: 2em;
       width: 240px;
-      background-color: #fff;
+      background-color: #f0f0f0;
+      box-shadow: inset 1px 0 rgba(0,0,0,0.05), inset 4px 0 8px -2px rgba(0,0,0,0.08);
       line-height: 2;
-      font-size: 14px;
+    }
+
+    aside > h2 {
+      margin: 0;
+      color: #789;
     }
 
     aside > ol > li {
-      color: #678;
+      color: #567;
+      font-size: 12px;
     }
     aside > ol > li > a {
-      color: #4183c4;
+      color: #345;
       text-decoration: none;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
   <iframe name="main" frameborder="0" src="01-introduction.html"></iframe>
   <aside>
+    <h2>Table of Content</h2>
     <ol>
      <li><a href="01-introduction.html" target="main">相关介绍</a></li>
      <li><a href="02-getting-started.html" target="main">准备工作</a></li>
@@ -49,6 +60,7 @@
      <li><a href="12-admin-nav-menu.html" target="main">管理后台导航菜单管理</a></li>
      <li><a href="13-admin-slide.html" target="main">管理后台首页轮播管理</a></li>
      <li><a href="14-admin-setting.html" target="main">管理后台设置选项</a></li>
+     <li><a href="99-other.html" target="main">其他补充</a></li>
     </ol>
   </aside>
 </body>

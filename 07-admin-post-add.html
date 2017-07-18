@@ -1,0 +1,840 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>07-admin-post-add.md</title><link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'><style type='text/css'>html, body {overflow-x: initial !important;}.CodeMirror { height: auto; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; }
+.CodeMirror-lines { padding: 4px 0px; }
+.CodeMirror pre { }
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { background-color: white; }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-color: rgb(247, 247, 247); white-space: nowrap; }
+.CodeMirror-linenumbers { }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.CodeMirror div.CodeMirror-cursor { border-left-width: 1px; border-left-style: solid; border-left-color: black; z-index: 3; }
+.CodeMirror div.CodeMirror-secondarycursor { border-left-width: 1px; border-left-style: solid; border-left-color: silver; }
+.CodeMirror.cm-keymap-fat-cursor div.CodeMirror-cursor { width: auto; border: 0px; background-color: rgb(119, 238, 119); z-index: 1; background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror div.CodeMirror-cursor.CodeMirror-overwrite { }
+.cm-tab { display: inline-block; }
+.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property { color: rgb(217, 79, 138); }
+.cm-s-typora-default pre.cm-header1:not(.cm-atom) :not(.cm-overlay) { font-size: 2rem; line-height: 2rem; }
+.cm-s-typora-default pre.cm-header2:not(.cm-atom) :not(.cm-overlay) { font-size: 1.4rem; line-height: 1.4rem; }
+.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number { color: rgb(149, 132, 134); }
+.cm-s-typora-default .cm-table-row, .cm-s-typora-default .cm-block-start { font-family: monospace; }
+.cm-s-typora-default .cm-comment, .cm-s-typora-default .cm-code { color: rgb(74, 90, 159); font-family: monospace; }
+.cm-s-typora-default .cm-tag { color: rgb(169, 68, 66); }
+.cm-s-typora-default .cm-string { color: rgb(126, 134, 169); }
+.cm-s-typora-default .cm-link { color: rgb(196, 122, 15); text-decoration: underline; }
+.cm-s-typora-default .cm-variable-2, .cm-s-typora-default .cm-variable-1 { color: inherit; }
+.cm-s-typora-default .cm-overlay { font-size: 1rem; font-family: monospace; }
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor { border-left-width: 3px; border-left-style: solid; border-left-color: rgb(228, 98, 154); }
+.cm-s-typora-default .CodeMirror-activeline-background { left: -60px; right: -30px; background-color: rgba(204, 204, 204, 0.2); background-position: initial initial; background-repeat: initial initial; }
+.cm-s-typora-default .CodeMirror-gutters { border-right-style: none; background-color: inherit; }
+.cm-s-typora-default .cm-trailing-space-new-line::after, .cm-startspace::after, .cm-starttab .cm-tab::after { content: '•'; position: absolute; left: 0px; opacity: 0; font-family: LetterGothicStd, monospace; }
+.os-windows .cm-startspace::after, .os-windows .cm-starttab .cm-tab::after { left: -0.1em; }
+.cm-starttab .cm-tab::after { content: ' '; }
+.cm-startspace, .cm-tab, .cm-starttab, .cm-trailing-space-a, .cm-trailing-space-b, .cm-trailing-space-new-line { font-family: monospace; position: relative; }
+.cm-s-typora-default .cm-trailing-space-new-line::after { content: '↓'; opacity: 0.3; }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: black; }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-property { color: black; }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: blue; }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: bold; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: rgb(255, 0, 0); }
+.cm-invalidchar { color: rgb(255, 0, 0); }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { margin-bottom: -30px; margin-right: -30px; padding-bottom: 30px; padding-right: 30px; height: 100%; outline: none; position: relative; box-sizing: content-box; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow-x: hidden; overflow-y: scroll; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow-y: hidden; overflow-x: scroll; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; background-color: transparent; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: -webkit-fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-widget { }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.CodeMirror-selected { background-color: rgb(217, 217, 217); background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror-focused .CodeMirror-selected { background-color: rgb(215, 212, 240); background-position: initial initial; background-repeat: initial initial; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror span { }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+.CodeMirror-lint-markers { width: 16px; }
+.CodeMirror-lint-tooltip { background-color: infobackground; border: 1px solid black; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: infotext; font-family: monospace; overflow: hidden; padding: 2px 5px; position: fixed; white-space: pre-wrap; z-index: 10000; max-width: 600px; opacity: 0; transition: opacity 0.4s; font-size: 0.8em; }
+.CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning { background-position: left bottom; background-repeat: repeat no-repeat; }
+.CodeMirror-lint-mark-error { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==); }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning { cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: middle; position: relative; background-position: center center; background-repeat: no-repeat no-repeat; }
+.CodeMirror-lint-message-error, .CodeMirror-lint-message-warning { padding-left: 18px; background-position: left top; background-repeat: no-repeat no-repeat; }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII=); }
+.CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII=); }
+.CodeMirror-lint-marker-multiple { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC); width: 100%; height: 100%; background-position: right bottom; background-repeat: no-repeat no-repeat; }
+
+
+html { font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { background-color: rgb(181, 214, 252); text-shadow: none; background-position: initial initial; background-repeat: initial initial; }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: auto; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+.typora-export #write { margin: 0px auto; }
+#write > p:first-child, #write > ul:first-child, #write > ol:first-child, #write > pre:first-child, #write > blockquote:first-child, #write > div:first-child, #write > table:first-child { margin-top: 30px; }
+#write li > table:first-child { margin-top: -20px; }
+img { max-width: 100%; vertical-align: middle; }
+input, button, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+::before, ::after, * { box-sizing: border-box; }
+#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write div, #write pre { width: inherit; }
+#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6 { position: relative; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
+.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0rem; -webkit-margin-after: 0rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: bold; font-style: italic; }
+a { cursor: pointer; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; margin: 4px 0px 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 80px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+pre { white-space: pre-wrap; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
+.md-fences.mock-cm { white-space: pre-wrap; }
+.show-fences-line-number .md-fences { padding-left: 0px; }
+.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; padding-top: 1em; padding-bottom: 1em; }
+.footnotes + .footnotes { margin-top: -1em; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background-color: transparent; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: normal; text-align: left; box-sizing: content-box; direction: ltr; background-position: initial initial; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li p, li .mathjax-block { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; }
+@media print { 
+  html, body { height: 100%; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
+  p { orphans: 4; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 1cm; padding-right: 1cm; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0mm; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 2.86rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
+p + .mathjax-block { margin-top: -1.143rem; }
+.mathjax-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: none; box-shadow: none; }
+.task-list { list-style-type: none; }
+.task-list-item { position: relative; padding-left: 1em; }
+.task-list-item input { position: absolute; top: 0px; left: 0px; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc::after, .md-toc-content::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); text-decoration: none; }
+.md-toc-inner:hover { }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: bold; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: '.'; }
+.md-tag { opacity: 0.5; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: monospace; }
+code { text-align: left; }
+h1 .md-tag, h2 .md-tag, h3 .md-tag, h4 .md-tag, h5 .md-tag, h6 .md-tag { font-weight: initial; opacity: 0.35; }
+a.md-print-anchor { border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: none !important; background-color: transparent !important; text-shadow: initial !important; background-position: initial initial !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0em; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: normal; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+
+
+@include-when-export url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: normal;
+  font-style: normal;
+
+  src: local('Open Sans Regular'), url('file:///Users/zce/Library/Application%20Support/abnerworks.Typora/themes/reborn/400.woff') format('woff')
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: normal;
+  font-style: italic;
+
+  src: local('Open Sans Italic'), url('file:///Users/zce/Library/Application%20Support/abnerworks.Typora/themes/reborn/400i.woff') format('woff')
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: bold;
+  font-style: normal;
+
+  src: local('Open Sans Bold'), url('file:///Users/zce/Library/Application%20Support/abnerworks.Typora/themes/reborn/700.woff') format('woff')
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: bold;
+  font-style: italic;
+
+  src: local('Open Sans Bold Italic'), url('file:///Users/zce/Library/Application%20Support/abnerworks.Typora/themes/reborn/700i.woff') format('woff')
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  color: #57676e;
+
+  font-family: 'Open Sans', 'Clear Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.8;
+
+  background-color: #fcfdff;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#write {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 40px 100px 40px;
+}
+
+#write > ul:first-child,
+#write > ol:first-child {
+  margin-top: 30px;
+}
+
+#write > *:first-child {
+  margin-top: 0 !important;
+}
+
+#write > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+a {
+  color: #4183C4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  position: relative;
+
+  margin-top: 2em;
+  margin-bottom: 1em;
+
+  cursor: text;
+
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+  text-decoration: none;
+}
+
+h1 tt,
+h2 tt,
+h3 tt,
+h4 tt,
+h5 tt,
+h6 tt,
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  padding-bottom: .3em;
+
+  border-bottom: 1px solid #eee;
+
+  font-size: 2.25em;
+  line-height: 1.2;
+}
+
+h2 {
+   padding-bottom: .3em;
+
+  border-bottom: 1px solid #eee;
+
+  font-size: 1.75em;
+  line-height: 1.225;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+h4 {
+  font-size: 1.25em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  color: #777;
+
+   font-size: 1em;
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+img,
+table {
+  margin: 1em 0;
+}
+
+li > ol,
+li > ul {
+  margin: 0 0;
+}
+
+hr {
+  overflow: hidden;
+
+  box-sizing: content-box;
+  height: 1px;
+  margin: 5rem 0;
+  padding: 0;
+
+  border: 0;
+  background-color: #e7e7e7;
+}
+
+hr:after {
+  position: absolute;
+  left: 50%;
+
+  padding: 0 20px;
+
+  content: 'MAKE IT BETTER';
+  transform: translate(-50%,-50%);
+
+  color: #aaa;
+  background-color: #fff;
+
+  font-size: 12px;
+}
+
+body > h1:first-child,
+body > h2:first-child,
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child,
+body > h1:first-child + h2,
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+  margin-top: 0;
+}
+
+li p.first {
+  display: inline-block;
+}
+
+ul,
+ol {
+  padding-left: 30px;
+}
+
+ul:first-child,
+ol:first-child {
+  margin-top: 0;
+}
+
+ul:last-child,
+ol:last-child {
+  margin-bottom: 0;
+}
+
+blockquote {
+  padding: .5rem 1rem;
+
+  color: #777;
+  border-left: 5px solid #ddd;
+  background-color: #f8f9fb;
+}
+
+blockquote blockquote {
+  padding-right: 0;
+}
+
+table {
+  padding: 0;
+}
+
+table tr {
+  margin: 0;
+  padding: 0;
+
+  border-top: 1px solid #cccccc;
+  background-color: white;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+table tr th {
+  margin: 0;
+  padding: 6px 13px;
+
+  text-align: left;
+
+  border: 1px solid #cccccc;
+
+  font-weight: bold;
+}
+
+table tr td {
+  margin: 0;
+  padding: 6px 13px;
+
+  text-align: left;
+
+  border: 1px solid #cccccc;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+  margin-top: 0;
+}
+
+table tr th:last-child,
+table tr td:last-child {
+  margin-bottom: 0;
+}
+
+.CodeMirror-gutters {
+  border-right: 1px solid #ddd;
+}
+
+.md-fences,
+code,
+tt {
+  padding: 2px 4px;
+
+  border: 1px solid #eee;
+  border-radius: 3px;
+  background-color: #f8f8f8;
+
+  font-family: Consolas, 'Liberation Mono', Courier, monospace;
+  font-size: .875rem;
+}
+
+.md-fences {
+  margin: 1.5rem 0;
+  padding: .5rem 1rem;
+}
+
+.task-list {
+  padding-left: 0;
+}
+
+.task-list-item {
+  padding-left:32px;
+}
+
+.task-list-item input {
+  top: 3px;
+  left: 8px;
+}
+
+@media screen and (min-width: 914px) {
+  /*body {
+    width: 854px;
+    margin: 0 auto;
+  }*/
+}
+
+@media print {
+  html {
+    font-size: 13px;
+  }
+
+  table,
+  pre {
+    page-break-inside: avoid;
+  }
+
+  pre {
+    word-wrap: break-word;
+  }
+
+}
+
+.md-fences {
+  background-color: #f8f8f8;
+}
+
+#write pre.md-meta-block {
+  margin-top: 0 !important;
+  padding: 1rem;
+
+  color: #777;
+  border: 0;
+  border-radius: 3px;
+  background-color: #f7f7f7;
+
+  font-size: 85%;
+  line-height: 1.45;
+}
+
+.mathjax-block > .code-tooltip {
+  bottom: .375rem;
+}
+
+#write > h3.md-focus:before {
+  top: .375rem;
+  left: -1.5625rem;
+}
+
+#write > h4.md-focus:before {
+  top: .285714286rem;
+  left: -1.5625rem;
+}
+
+#write > h5.md-focus:before {
+  top: .285714286rem;
+  left: -1.5625rem;
+}
+
+#write > h6.md-focus:before {
+  top: .285714286rem;
+  left: -1.5625rem;
+}
+
+.md-image > .md-meta {
+  padding: .5rem 1rem;
+
+  color: inherit;
+  border-radius: .25rem;
+  background-color: #f8f8f8;
+
+  font-family: Consolas, 'Liberation Mono', Courier, monospace;
+  font-size: .875rem;
+}
+.md-expand.md-img-loaded > .md-meta {
+  display: block;
+
+  margin-top: 1rem;
+
+  text-align: center;
+}
+
+.md-tag {
+  color: inherit;
+}
+
+.md-toc {
+  margin-top:20px;
+  padding-bottom:20px;
+}
+
+#typora-quick-open {
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px #c0c0c0;
+}
+
+.typora-quick-open-item {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fefefe #e5e5e5 #e5e5e5 #eee;
+  background-color: #fafafa;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+  border-left-color: rgba(85, 85, 85, .12);
+}
+
+header, .context-menu, .megamenu-content, footer {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+
+/** initialize css counter */
+#write {
+  counter-reset: h2
+}
+
+h2 {
+  counter-reset: h3
+}
+
+h3 {
+  counter-reset: h4
+}
+
+/** put counter result into headings */
+#write h2:before {
+  content: counter(h2) '. ';
+  counter-increment: h2;
+
+  color: #87979e;
+
+  font-size: .8em;
+}
+
+#write h3:before,
+h3.md-focus.md-heading:before /** override the default style for focused headings */ {
+  content: counter(h2) '.' counter(h3) '. ';
+  counter-increment: h3;
+
+  color: #87979e;
+
+  font-size: .8em;
+}
+
+#write h4:before,
+h4.md-focus.md-heading:before {
+  content: counter(h2) '.' counter(h3) '.' counter(h4) '. ';
+  counter-increment: h4;
+
+  color: #87979e;
+
+  font-size: .8em;
+}
+
+/** override the default style for focused headings */
+#write > h3.md-focus:before,
+#write > h4.md-focus:before,
+h3.md-focus:before,
+h4.md-focus:before {
+  position: inherit;
+  top:initial;
+  left:initial;
+
+  float: none;
+
+  padding-right: inherit;
+  padding-left: inherit;
+
+  vertical-align: inherit;
+
+  border: inherit;
+  border-radius: inherit;
+
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+.md-toc-h2 .md-toc-inner::before,
+.md-toc-h3 .md-toc-inner::before,
+.md-toc-h4 .md-toc-inner::before,
+.md-toc-h5 .md-toc-inner::before,
+.md-toc-h6 .md-toc-inner::before {
+  content: '●  ';
+}
+
+.md-toc-h1 .md-toc-inner {
+  margin-left: 0;
+}
+
+.md-toc-h2 .md-toc-inner {
+  margin-left: 1em;
+}
+
+.md-toc-h3 .md-toc-inner {
+  margin-left: 2em;
+}
+
+.md-toc-h4 .md-toc-inner {
+  margin-left: 3em;
+}
+
+.md-toc-h5 .md-toc-inner {
+  margin-left: 4em;
+}
+
+.md-toc-h6 .md-toc-inner {
+  margin-left: 5em;
+}
+
+
+/* Source mode */
+#typora-source .CodeMirror-lines {
+  max-width: 1000px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 20px;
+}
+
+#typora-source .CodeMirror-linenumber {
+  right: 0;
+  visibility: visible;
+}
+
+.cm-s-typora-default pre.cm-header1:not(.cm-atom) *:not(.cm-overlay){
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.cm-s-typora-default pre.cm-header2:not(.cm-atom) *:not(.cm-overlay){
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Export mode */
+
+.typora-export {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  background: #e7eef2;
+}
+
+.typora-export > #write {
+  border: 1px solid #c3ccd0;
+  border-radius: .25em;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(255,255,255,0), 0 0 1em rgba(0,0,0,.1);
+}
+
+
+
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><h1><a name='header-c5' class='md-header-anchor '></a>写文章</h1><h2><a name='header-c7' class='md-header-anchor '></a>相关介绍</h2><p>在动态网站开发过程中，最常见的两种页面情况：</p><ul><li>单纯的对数据进行展示；</li><li>表单类页面的两次请求；</li></ul><p>以下为一个非常经典的表单类请求时序图，可以清晰看到两次请求过程：</p><div class="md-diagram-panel" mdtype="math_block"><svg height="575.21875" version="1.1" width="893.25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; top: -0.1875px;"><desc>Created with Raphaël 2.2.0</desc><defs><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block"></path><marker id="raphael-marker-endblock55-objci3xf" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock55-objd2slc" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock55-objebm3q" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock55-obj1ur24" markerHeight="5" markerWidth="5" orient="auto" refX="2.5" refY="2.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 2.5 2.5) scale(1,1)" stroke-width="1.0000" fill="currentColor" stroke="none"></use></marker></defs><rect x="10" y="10" width="170" height="28" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="15" y="15" width="160" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="95" y="24" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">表单类页面请求时序图</tspan></text><rect x="160" y="48" width="68" height="38" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="170" y="58" width="48" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="194" y="67" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">客户端</tspan></text><rect x="160" y="517.21875" width="68" height="38" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="170" y="527.21875" width="48" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="194" y="536.21875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">客户端</tspan></text><path fill="none" stroke="currentColor" d="M194,86L194,517.21875" stroke-width="2" style=""></path><rect x="521.25" y="48" width="68" height="38" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="531.25" y="58" width="48" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="555.25" y="67" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">服务端</tspan></text><rect x="521.25" y="517.21875" width="68" height="38" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="531.25" y="527.21875" width="48" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="555.25" y="536.21875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">服务端</tspan></text><path fill="none" stroke="currentColor" d="M555.25,86L555.25,517.21875" stroke-width="2" style=""></path><rect x="293" y="102" width="163.25" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="374.625" y="111" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">GET /post-add.php</tspan></text><path fill="none" stroke="currentColor" d="M194,124C194,124,506.72734470665455,124,550.2465308596802,124" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objci3xf)" stroke-dasharray="none" style=""></path><rect x="575.25" y="144" width="234" height="28" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="580.25" y="149" width="224" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="692.25" y="158" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">服务端组织一个包含表单的页面</tspan></text><rect x="269" y="188" width="211.25" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="374.625" y="197" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">RESPONSE /post-add.php</tspan></text><path fill="none" stroke="currentColor" d="M555.25,210C555.25,210,242.52265529334545,210,199.0034691403198,210" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objd2slc)" stroke-dasharray="none" style=""></path><rect x="184" y="230" width="381.25" height="28" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="189" y="235" width="371.25" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="374.625" y="244" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">---------- 以上为第一次请求过程 ----------</tspan></text><rect x="20" y="278" width="154" height="28" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="25" y="283" width="144" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="97" y="292" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">客户端填写表单数据</tspan></text><rect x="227.40625" y="322" width="294.4375" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="374.625" y="331" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">POST /post-add.php 填写的表单数据</tspan></text><path fill="none" stroke="currentColor" d="M194,344C194,344,506.72734470665455,344,550.2465308596802,344" stroke-width="2" marker-end="url(#raphael-marker-endblock55-objebm3q)" stroke-dasharray="none" style=""></path><rect x="575.25" y="364" width="218" height="47.21875" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="580.25" y="369" width="208" height="37.21875" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="684.25" y="387.609375" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="-4.0859375">服务端接收提交的数据和文件</tspan><tspan dy="19.2" x="684.25">保存数据和文件</tspan></text><rect x="283.40625" y="427.21875" width="182.4375" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="374.625" y="436.21875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">REDIRECT /posts.php</tspan></text><path fill="none" stroke="currentColor" d="M555.25,449.21875C555.25,449.21875,242.52265529334545,449.21875,199.0034691403198,449.21875" stroke-width="2" marker-end="url(#raphael-marker-endblock55-obj1ur24)" stroke-dasharray="none" style=""></path><rect x="184" y="469.21875" width="381.25" height="28" rx="0" ry="0" fill="none" stroke="currentColor" stroke-width="2" style=""></rect><rect x="189" y="474.21875" width="371.25" height="18" rx="0" ry="0" fill="none" stroke="none" style=""></rect><text x="374.625" y="483.21875" text-anchor="middle" font-family="Andale Mono, monospace" font-size="16px" stroke="none" fill="currentColor" style="text-anchor: middle; font-family: 'Andale Mono', monospace; font-size: 16px;"><tspan dy="5.515625">---------- 以上为第二次请求过程 ----------</tspan></text></svg></div><hr /><h2><a name='header-c21' class='md-header-anchor '></a>页面调整</h2><p>类似于之前的操作，我们还是需要调整页面上细节：</p><ul><li>表单属性</li><li>表单元素属性</li><li>等等</li></ul><h3><a name='header-c34' class='md-header-anchor '></a>为 <code>&lt;form&gt;</code> 添加必要属性</h3><ol start='' ><li><code>action=&quot;/admin/post-add.php&quot;</code>：提交给页面自身。也可以在单独创建一个 php 文件，让 action 提交到这个单独的文件。</li><li><code>method=&quot;post&quot;</code>：1. 提交的数据篇幅比较大；2. 主观意义上也是给服务端发数据。</li><li><code>enctype=&quot;&quot;</code>：暂时不提，待会会用到，再说。</li></ol><h3><a name='header-c45' class='md-header-anchor '></a>为 <code>&lt;input&gt;</code> 添加必要属性</h3><ol start='' ><li><code>name</code> 属性，表单元素提交必要属性</li><li><code>label</code> 关联，每一个表单元素都必须有一个关联的 <code>label</code>，不管界面上需要还是不需要。（现在的 Web 开发者很不讲究了，很少有人注意这个问题了）</li></ol><h3><a name='header-c53' class='md-header-anchor '></a>提交按钮 type</h3><p>表单想要被提交必须要有提交按钮的点击，所以页面上必须有提交按钮</p><p>当然，我这里提供的 HTML 绝大多数问题都已经考虑了，所以不需要太多调整。</p><blockquote><p>🚩 源代码: step-38</p></blockquote><hr /><h2><a name='header-c62' class='md-header-anchor '></a>业务核心</h2><p>在这个页面中，业务的核心自然是：当表单被提交（POST）回来，接收表单上填写的数据，校验，然后保存起来，具体流程如下：</p><div class="md-diagram-panel" mdtype="math_block"><svg height="1325.16015625" version="1.1" width="494.82421875" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 494.82421875 1325.16015625" preserveAspectRatio="xMidYMid meet" style="overflow: hidden; position: relative; top: -0.96875px;"><desc>Created with Raphaël 2.2.0</desc><defs><marker id="raphael-marker-endblock33-objwoviq" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-obj55b4j" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-obju7efc" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-objppp8a" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-objwf5g8" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-obj57p1y" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-obj7q1ga" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-objed96d" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-objhf810" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-objjuvok" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-objm4vbo" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-obj7jgwo" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker><marker id="raphael-marker-endblock33-objqhe0x" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="currentColor" stroke="none"></use></marker></defs><rect x="0" y="0" width="48" height="35.65625" rx="20" ry="20" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="s" transform="matrix(1,0,0,1,91.4297,42.8867)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="st" class="flowchartt" transform="matrix(1,0,0,1,91.4297,42.8867)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">开始</tspan></text><rect x="0" y="0" width="104" height="35.65625" rx="0" ry="0" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="o1" transform="matrix(1,0,0,1,63.4297,171.4297)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="o1t" class="flowchartt" transform="matrix(1,0,0,1,63.4297,171.4297)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">登录状态校验</tspan></text><path fill="transparent" stroke="currentColor" d="M54.71484375,27.357421875L0,54.71484375L109.4296875,109.4296875L218.859375,54.71484375L109.4296875,0L0,54.71484375" stroke-width="3" fill-opacity="0" id="c1" class="flowchart" transform="matrix(1,0,0,1,6,263.0859)" style=""></path><text x="59.71484375" y="54.71484375" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="c1t" class="flowchartt" transform="matrix(1,0,0,1,6,263.0859)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.85546875">是否为 POST 请求</tspan></text><rect x="0" y="0" width="104" height="35.65625" rx="0" ry="0" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="o2" transform="matrix(1,0,0,1,63.4297,465.4023)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="o2t" class="flowchartt" transform="matrix(1,0,0,1,63.4297,465.4023)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">表单数据校验</tspan></text><path fill="transparent" stroke="currentColor" d="M42.75,21.375L0,42.75L85.5,85.5L171,42.75L85.5,0L0,42.75" stroke-width="3" fill-opacity="0" id="c2" class="flowchart" transform="matrix(1,0,0,1,29.9297,569.0234)" style=""></path><text x="47.75" y="42.75" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="c2t" class="flowchartt" transform="matrix(1,0,0,1,29.9297,569.0234)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">数据是否合法</tspan></text><rect x="0" y="0" width="104" height="35.65625" rx="0" ry="0" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="o3" transform="matrix(1,0,0,1,63.4297,747.4102)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="o3t" class="flowchartt" transform="matrix(1,0,0,1,63.4297,747.4102)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">接收表单数据</tspan></text><rect x="0" y="0" width="76" height="35.65625" rx="0" ry="0" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="o4" transform="matrix(1,0,0,1,77.4297,875.9531)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="o4t" class="flowchartt" transform="matrix(1,0,0,1,77.4297,875.9531)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">保存数据</tspan></text><path fill="transparent" stroke="currentColor" d="M42.75,21.375L0,42.75L85.5,85.5L171,42.75L85.5,0L0,42.75" stroke-width="3" fill-opacity="0" id="c3" class="flowchart" transform="matrix(1,0,0,1,29.9297,979.5742)" style=""></path><text x="47.75" y="42.75" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="c3t" class="flowchartt" transform="matrix(1,0,0,1,29.9297,979.5742)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">是否保存成功</tspan></text><rect x="0" y="0" width="104" height="35.65625" rx="0" ry="0" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="o5" transform="matrix(1,0,0,1,63.4297,1157.9609)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="o5t" class="flowchartt" transform="matrix(1,0,0,1,63.4297,1157.9609)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">跳转到列表页</tspan></text><rect x="0" y="0" width="48" height="35.65625" rx="20" ry="20" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="e" transform="matrix(1,0,0,1,91.4297,1286.5039)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="et" class="flowchartt" transform="matrix(1,0,0,1,91.4297,1286.5039)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">结束</tspan><tspan dy="16.8" x="10"></tspan></text><rect x="0" y="0" width="104" height="35.65625" rx="0" ry="0" fill="transparent" stroke="currentColor" fill-opacity="0" stroke-width="3" class="flowchart" id="o6" transform="matrix(1,0,0,1,314.3594,1004.4961)" style=""></rect><text x="10" y="17.828125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" id="o6t" class="flowchartt" transform="matrix(1,0,0,1,314.3594,1004.4961)" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">提示错误消息</tspan></text><path fill="none" stroke="currentColor" d="M115.4296875,78.54296875C115.4296875,78.54296875,115.4296875,148.35577092389576,115.4296875,166.9338847836483" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objwoviq)" style=""></path><path fill="none" stroke="currentColor" d="M115.4296875,207.0859375C115.4296875,207.0859375,115.4296875,245.28670835494995,115.4296875,258.58609781763516" stroke-width="3" marker-end="url(#raphael-marker-endblock33-obj55b4j)" style=""></path><path fill="none" stroke="currentColor" d="M115.4296875,372.515625C115.4296875,372.515625,115.4296875,442.32842717389576,115.4296875,460.9065410336483" stroke-width="3" marker-end="url(#raphael-marker-endblock33-obju7efc)" style=""></path><text x="120.4296875" y="382.515625" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.859375">yes</tspan></text><path fill="none" stroke="currentColor" d="M224.859375,317.80078125C224.859375,317.80078125,366.359375,317.80078125,366.359375,317.80078125C366.359375,317.80078125,366.359375,940.8285579291405,366.359375,999.997943946764" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objppp8a)" style=""></path><text x="229.859375" y="307.80078125" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.84765625">no</tspan></text><path fill="none" stroke="currentColor" d="M115.4296875,501.05859375C115.4296875,501.05859375,115.4296875,549.3597562720533,115.4296875,564.5246232162332" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objwf5g8)" style=""></path><path fill="none" stroke="currentColor" d="M115.4296875,654.5234375C115.4296875,654.5234375,115.4296875,724.3362396738958,115.4296875,742.9143535336483" stroke-width="3" marker-end="url(#raphael-marker-endblock33-obj57p1y)" style=""></path><text x="120.4296875" y="664.5234375" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.8515625">yes</tspan></text><path fill="none" stroke="currentColor" d="M200.9296875,611.7734375C200.9296875,611.7734375,366.359375,611.7734375,366.359375,611.7734375C366.359375,611.7734375,366.359375,956.4905454824329,366.359375,1000.0009812311922" stroke-width="3" marker-end="url(#raphael-marker-endblock33-obj7q1ga)" style=""></path><text x="205.9296875" y="601.7734375" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.8515625">no</tspan></text><path fill="none" stroke="currentColor" d="M115.4296875,783.06640625C115.4296875,783.06640625,115.4296875,852.8792084238958,115.4296875,871.4573222836483" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objed96d)" style=""></path><path fill="none" stroke="currentColor" d="M115.4296875,911.609375C115.4296875,911.609375,115.4296875,959.9105375220533,115.4296875,975.0754044662333" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objhf810)" style=""></path><path fill="none" stroke="currentColor" d="M115.4296875,1065.07421875C115.4296875,1065.07421875,115.4296875,1134.8870209238958,115.4296875,1153.4651347836484" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objjuvok)" style=""></path><text x="120.4296875" y="1075.07421875" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.85546875">yes</tspan></text><path fill="none" stroke="currentColor" d="M200.9296875,1022.32421875C200.9296875,1022.32421875,288.79498377395794,1022.32421875,309.8603453318258,1022.32421875" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objm4vbo)" style=""></path><text x="205.9296875" y="1012.32421875" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="currentColor" stroke-width="1" style="text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.85546875">no</tspan></text><path fill="none" stroke="currentColor" d="M115.4296875,1193.6171875C115.4296875,1193.6171875,115.4296875,1263.4299896738958,115.4296875,1282.0081035336484" stroke-width="3" marker-end="url(#raphael-marker-endblock33-obj7jgwo)" style=""></path><path fill="none" stroke="currentColor" d="M366.359375,1040.15234375C366.359375,1040.15234375,366.359375,1261.50390625,366.359375,1261.50390625C366.359375,1261.50390625,115.4296875,1261.50390625,115.4296875,1261.50390625C115.4296875,1261.50390625,115.4296875,1274.8078775405884,115.4296875,1282.005533883348" stroke-width="3" marker-end="url(#raphael-marker-endblock33-objqhe0x)" style=""></path></svg></div><h3><a name='header-c66' class='md-header-anchor '></a>数据校验</h3><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 40px;"></div><div class="CodeMirror-hscrollbar" style="left: 36px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 36px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>21</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 处理提交请求</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// ========================================</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">if</span> (<span class="cm-variable-2">$_SERVER</span>[<span class="cm-string">'REQUEST_METHOD'</span>] <span class="cm-operator">==</span> <span class="cm-string">'POST'</span>) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// 数据校验</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// ------------------------------</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-keyword">if</span> (<span class="cm-keyword">empty</span>(<span class="cm-variable-2">$_POST</span>[<span class="cm-string">'slug'</span>])</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-operator">||</span> <span class="cm-keyword">empty</span>(<span class="cm-variable-2">$_POST</span>[<span class="cm-string">'title'</span>])</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-operator">||</span> <span class="cm-keyword">empty</span>(<span class="cm-variable-2">$_POST</span>[<span class="cm-string">'created'</span>])</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-operator">||</span> <span class="cm-keyword">empty</span>(<span class="cm-variable-2">$_POST</span>[<span class="cm-string">'content'</span>])</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">11</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-operator">||</span> <span class="cm-keyword">empty</span>(<span class="cm-variable-2">$_POST</span>[<span class="cm-string">'status'</span>])</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">12</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-operator">||</span> <span class="cm-keyword">empty</span>(<span class="cm-variable-2">$_POST</span>[<span class="cm-string">'category'</span>])) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">13</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-comment">// 缺少必要数据</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">14</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable-2">$message</span> <span class="cm-operator">=</span> <span class="cm-string">'请完整填写所有内容'</span>;</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">15</div></div><pre class=""><span style="padding-right: 0.1px;">  } <span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable">xiu_query</span>(<span class="cm-builtin">sprintf</span>(<span class="cm-string">"select count(1) from posts where slug = '%s'"</span>, <span class="cm-variable-2">$_POST</span>[<span class="cm-string">'slug'</span>]))[<span class="cm-number">0</span>][<span class="cm-number">0</span>] <span class="cm-operator">&gt;</span> <span class="cm-number">0</span>) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">16</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-comment">// slug 重复</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">17</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable-2">$message</span> <span class="cm-operator">=</span> <span class="cm-string">'别名已经存在，请修改别名'</span>;</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">18</div></div><pre class=""><span style="padding-right: 0.1px;">  } <span class="cm-keyword">else</span> {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">19</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-comment">// 数据合法</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">20</div></div><pre class=""><span style="padding-right: 0.1px;">  }</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">21</div></div><pre class=""><span style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 550px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><h3><a name='header-c68' class='md-header-anchor '></a>接收数据</h3><p>作者 ID 可以从当前登录用户信息中获取</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 40px;"></div><div class="CodeMirror-hscrollbar" style="left: 36px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 36px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>11</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 接收数据</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// ------------------------------</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$slug</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$_POST</span>[<span class="cm-string">'slug'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$title</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$_POST</span>[<span class="cm-string">'title'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$feature</span> <span class="cm-operator">=</span> <span class="cm-string">''</span>; <span class="cm-comment">// 图片稍后再考虑</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$created</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$_POST</span>[<span class="cm-string">'created'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$content</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$_POST</span>[<span class="cm-string">'content'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$status</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$_POST</span>[<span class="cm-string">'status'</span>]; <span class="cm-comment">// 作者 ID 可以从当前登录用户信息中获取</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$user_id</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$current_user</span>[<span class="cm-string">'id'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">11</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$category_id</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$_POST</span>[<span class="cm-string">'category'</span>];</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 300px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><h3><a name='header-c72' class='md-header-anchor '></a>保存数据</h3><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 40px;"></div><div class="CodeMirror-hscrollbar" style="left: 36px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 36px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>19</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 拼接查询语句</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$sql</span> <span class="cm-operator">=</span> <span class="cm-builtin">sprintf</span>(</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-string">"insert into posts values (null, '%s', '%s', '%s', '%s', '%s', 0, 0, '%s', %d, %d)"</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$slug</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$title</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$feature</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$created</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$content</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$status</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$user_id</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">11</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$category_id</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">12</div></div><pre class=""><span style="padding-right: 0.1px;">);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">13</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">14</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 执行 SQL 保存数据</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">15</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">if</span> (<span class="cm-variable">xiu_execute</span>(<span class="cm-variable-2">$sql</span>) <span class="cm-operator">&gt;</span> <span class="cm-number">0</span>) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">16</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// 保存成功</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">17</div></div><pre class=""><span style="padding-right: 0.1px;">} <span class="cm-keyword">else</span> {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">18</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// 保存失败，请重试</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">19</div></div><pre class=""><span style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 500px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><h3><a name='header-c74' class='md-header-anchor '></a>错误消息展示</h3><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>5</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">if</span> (<span class="cm-keyword">isset</span>(<span class="cm-variable-2">$message</span>)) : <span class="cm-operator">?&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">div</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"alert alert-danger"</span><span class="cm-operator">&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-operator">&lt;</span><span class="cm-variable">strong</span><span class="cm-operator">&gt;</span><span class="cm-variable">错误！</span><span class="cm-operator">&lt;/</span><span class="cm-variable">strong</span><span class="cm-operator">&gt;&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">echo</span> <span class="cm-variable-2">$message</span>; <span class="cm-operator">?&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">4</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;/</span><span class="cm-variable">div</span><span class="cm-operator">&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">5</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">endif</span>; <span class="cm-operator">?&gt;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 125px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h3><a name='header-c76' class='md-header-anchor '></a>跳转</h3><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 保存成功 跳转</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-builtin">header</span>(<span class="cm-string">'Location: /admin/posts.php'</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">exit</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 75px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p>🚩 源代码: step-39</p></blockquote><h3><a name='header-c81' class='md-header-anchor '></a>加载分类列表</h3><p>分类数据目前是在 HTML 中写死的，十分不合适，应该是在一开始的时候加载数据库中的分类，然后展示在界面上。</p><p>再由用户选择。</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 40px;"></div><div class="CodeMirror-hscrollbar" style="left: 36px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 36px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>13</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 查询数据</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// ========================================</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 查询全部分类数据</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$categories</span> <span class="cm-operator">=</span> <span class="cm-variable">xiu_query</span>(<span class="cm-string">'select * from categories'</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=""><span style="padding-right: 0.1px;">...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">select</span> <span class="cm-variable">id</span><span class="cm-operator">=</span><span class="cm-string">"category"</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"form-control"</span> <span class="cm-variable">name</span><span class="cm-operator">=</span><span class="cm-string">"category"</span><span class="cm-operator">&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">foreach</span> (<span class="cm-variable-2">$categories</span> <span class="cm-keyword">as</span> <span class="cm-variable-2">$item</span>) { <span class="cm-operator">?&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">11</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-operator">&lt;</span><span class="cm-variable">option</span> <span class="cm-variable">value</span><span class="cm-operator">=</span><span class="cm-string">"&lt;?php echo $item['id']; ?&gt;"</span><span class="cm-operator">&gt;&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">echo</span> <span class="cm-variable-2">$item</span>[<span class="cm-string">'name'</span>]; <span class="cm-operator">?&gt;&lt;/</span><span class="cm-variable">option</span><span class="cm-operator">&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">12</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> } <span class="cm-operator">?&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">13</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;/</span><span class="cm-variable">select</span><span class="cm-operator">&gt;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 350px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><blockquote><p>🚩 源代码: step-40</p></blockquote><h3><a name='header-c90' class='md-header-anchor '></a>表单元素状态保持</h3><p>目前，如果提交表单时发生任何错误，当浏览器再次显示表单时，之前的数据全部会被清空，为了提高使用过程的体验，所以需要保持之前的填写状态，具体方法参考之前登录功能：</p><p>在服务端渲染 HTML 时，给每一个表单元素加上 value 属性，值就从表单提交过来的数据中取。</p><p>例如文章标题：</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">input</span> <span class="cm-variable">id</span><span class="cm-operator">=</span><span class="cm-string">"title"</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"form-control input-lg"</span> <span class="cm-variable">name</span><span class="cm-operator">=</span><span class="cm-string">"title"</span> <span class="cm-variable">type</span><span class="cm-operator">=</span><span class="cm-string">"text"</span> <span class="cm-variable">value</span><span class="cm-operator">=</span><span class="cm-string">"&lt;?php echo isset($_POST['title']) ? $_POST['title'] : '' ?&gt;"</span> <span class="cm-variable">placeholder</span><span class="cm-operator">=</span><span class="cm-string">"文章标题"</span><span class="cm-operator">&gt;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 75px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p>🚩 源代码: step-41</p></blockquote><hr /><h2><a name='header-c102' class='md-header-anchor '></a>图片上传功能</h2><p>如果希望表单可以上传文件，必须将表单的 <code>enctype</code> 属性设置为 <code>multipart/form-data</code>，</p><p>我们不可能在数据库中保存文件，一般情况下，我们都是将文件保存到一个目录中，在数据库中保存访问路径 URL：</p><h3><a name='header-c107' class='md-header-anchor '></a>修改表单的编码类型</h3><blockquote><p><a href='http://www.w3school.com.cn/tags/att_form_enctype.asp' target='_blank' >http://www.w3school.com.cn/tags/att_form_enctype.asp</a></p></blockquote><p>默认情况下表单的编码类型为：<code>application/x-www-form-urlencoded</code>，表示当前表单中的数据是以 <code>urlencoded</code> 方式提交的。</p><p>但是对于表单中有文件域的情况下，文件是无法用文本表述的，所以必须通过另外一种编码类型：<code>multipart/form-data</code></p><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">form</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"row"</span> <span class="cm-variable">action</span><span class="cm-operator">=</span><span class="cm-string">"/admin/post-add.php"</span> <span class="cm-variable">method</span><span class="cm-operator">=</span><span class="cm-string">"post"</span> <span class="cm-variable">enctype</span><span class="cm-operator">=</span><span class="cm-string">"multipart/form-data"</span><span class="cm-operator">&gt;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=""><span style="padding-right: 0.1px;">  ...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;/</span><span class="cm-variable">form</span><span class="cm-operator">&gt;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 100px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h3><a name='header-c116' class='md-header-anchor '></a>修改文件域文件限制</h3><p>默认文件域允许选择任何文件，可以通过 <code>accept</code> 属性限制：</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">input</span> <span class="cm-variable">id</span><span class="cm-operator">=</span><span class="cm-string">"feature"</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"form-control"</span> <span class="cm-variable">name</span><span class="cm-operator">=</span><span class="cm-string">"feature"</span> <span class="cm-variable">type</span><span class="cm-operator">=</span><span class="cm-string">"file"</span> <span class="cm-variable">accept</span><span class="cm-operator">=</span><span class="cm-string">"image/*"</span><span class="cm-operator">&gt;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 50px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p><a href='http://www.w3school.com.cn/tags/att_input_accept.asp' target='_blank' >http://www.w3school.com.cn/tags/att_input_accept.asp</a>
+image/* 指的是任意类型图片</p></blockquote><h3><a name='header-c124' class='md-header-anchor '></a>接收上传文件内容</h3><p>在表单提交到服务端时，会自动把文件上传到服务器上，PHP（内部）执行时会自动将文件存到一个临时目录，然后将相关信息定义到 <code>$_FILES</code> 数组中。</p><p>知道了这些，我们接下来要做的就是：</p><ol start='' ><li>判断是否上传了文件</li><li>将上传的文件从临时目录移动到我们希望的目录</li><li>将路径保存到数据库中</li></ol><blockquote><p><a href='http://www.w3school.com.cn/php/php_file_upload.asp' target='_blank' >http://www.w3school.com.cn/php/php_file_upload.asp</a></p></blockquote><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 40px;"></div><div class="CodeMirror-hscrollbar" style="left: 36px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 36px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>14</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 接收文件并保存</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// ------------------------------</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 如果选择了文件 $_FILES['feature']['error'] =&gt; 0</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">if</span> (<span class="cm-keyword">empty</span>(<span class="cm-variable-2">$_FILES</span>[<span class="cm-string">'feature'</span>][<span class="cm-string">'error'</span>])) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// PHP 在会自动接收客户端上传的文件到一个临时的目录</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$temp_file</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$_FILES</span>[<span class="cm-string">'feature'</span>][<span class="cm-string">'tmp_name'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// 我们只需要把文件保存到我们指定上传目录</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable-2">$target_file</span> <span class="cm-operator">=</span> <span class="cm-string">'../static/uploads/'</span> . <span class="cm-variable-2">$_FILES</span>[<span class="cm-string">'feature'</span>][<span class="cm-string">'name'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-keyword">if</span> (<span class="cm-builtin">move_uploaded_file</span>(<span class="cm-variable-2">$temp_file</span>, <span class="cm-variable-2">$target_file</span>)) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">11</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable-2">$image_file</span> <span class="cm-operator">=</span> <span class="cm-string">'/static/uploads/'</span> . <span class="cm-variable-2">$_FILES</span>[<span class="cm-string">'feature'</span>][<span class="cm-string">'name'</span>];</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">12</div></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-builtin">var_dump</span>(<span class="cm-variable-2">$image_file</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">13</div></div><pre class=""><span style="padding-right: 0.1px;">  }</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">14</div></div><pre class=""><span style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 400px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><p><strong>这里我们暂时注释掉保存数据的代码，防止保存太多没必要的数据，另外如果保存成功了，页面会跳转，我们看不到调试信息</strong>：</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>9</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// // 执行 SQL 保存数据</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// if (xiu_execute($sql) &gt; 0) {</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// &nbsp; // 保存成功 跳转</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">4</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// &nbsp; header('Location: /admin/posts.php');</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">5</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// &nbsp; exit;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">6</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// } else {</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">7</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// &nbsp; // 保存失败</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">8</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// &nbsp; $message = '保存失败，请重试';</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">9</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// }</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 225px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p>经过测试发现，保存文件不会成功，错误信息：</p><pre class='md-fences mock-cm' style='display:block;position:relative'>Warning:
+move_uploaded_file(../static/uploads/photo.jpg): failed to open stream: Permission denied in /.../baixiu/admin/post-add.php on line 45
+
+Warning:
+move_uploaded_file(): Unable to move &#39;/private/var/tmp/phpkIg9CC&#39; to &#39;../static/uploads/photo.jpg&#39; in /.../baixiu/admin/post-add.php on line 45</pre><p>通过阅读错误信息发现：应该是权限一类的错误。</p><blockquote><p>在每一个操作系统中都有文件权限问题：</p><ol start='' ><li>系统中每一个工作进程都是由一个用户运行的；</li><li>如果这个用户没有指定文件或者目录的访问权，那么这个进程就无法操作这个文件或者目录；</li></ol></blockquote><p><strong>解决方法很简单，修改一下上传目录的读写权限即可，重点要理解为什么！</strong></p><p>U系操作系统：</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="shell"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-def">$ sudo</span> <span class="cm-builtin">chmod</span> <span class="cm-attribute">-R</span> <span class="cm-number">777</span> /.../baixiu/static/uploads</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 25px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p>Windows：</p><p>右键菜单找吧；</p><blockquote><p>🚩 源代码: step-42</p></blockquote><h3><a name='header-c173' class='md-header-anchor '></a>保存文件路径到数据库</h3><pre class="md-fences md-end-block md-fences-with-lineno" lang="php"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>2</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 上述逻辑执行成功就会定义一个 $image_file 变量</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable-2">$feature</span> <span class="cm-operator">=</span> <span class="cm-keyword">isset</span>(<span class="cm-variable-2">$image_file</span>) <span class="cm-operator">?</span> <span class="cm-variable-2">$image_file</span> : <span class="cm-string">''</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 50px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p>🚩 源代码: step-43</p></blockquote><hr /><h2><a name='header-c179' class='md-header-anchor '></a>页面交互</h2><p>上述过程已经完成了，当前<strong>发表文章</strong>功能的核心业务，但是很多地方的体验不佳，例如：</p><ol start='' ><li>上传图片没有预览</li><li>文章内容用 <code>&lt;textarea&gt;</code> 做纯文本编辑并不合理</li></ol><p>接下来我们可以利用我们之前的所学之长，解决这些问题。</p><blockquote><p>声明：谁要是还在说前端只是写页面，我 TM 弄死谁！前端也是开发者，开发者的核心是<strong>实现功能</strong>服务用户。</p></blockquote><h3><a name='header-c194' class='md-header-anchor '></a>本地图片预览</h3><p>本地图片预览的意思就是当选择图片后在界面上显示当前选中图片，显示图片肯定就是用 <code>&lt;img&gt;</code> 标签，<code>&lt;img&gt;</code> 标签需要工作就必须有一个图片 URL，所以核心就是怎么给选中图片一个 URL。</p><p>正常我们在页面上用的 URL 都是类似 <code>http://www.demo.com/a.jpg</code> 这样的地址，也就是说是服务器上的一个图片，但是我们目前的情况，图片在选中过后，还没有上传到服务端，所以不可能有这种 URL 地址。</p><p>选择图片这个过程中，我们都是在浏览器本地（客户端）单机操作的，没有跟服务交互，所以这个需求应该是用 JavaScript 处理。</p><blockquote><p>解决这一类的问题，核心把握：我现在在哪？我手头上有什么（能拿到什么）？我想要什么？</p></blockquote><blockquote><p><strong>我现在在哪？</strong>
+客户端浏览器，用户正在操作。
+<strong>我手头上有什么（能拿到什么）？</strong>
+与这个业务有关的东西，我们只能拿到用户操作的文件域 DOM 对象 -&gt; 选中的文件对象。
+<strong>我想要什么？</strong>
+我想要这个文件域中选择文件的 URL。</p></blockquote><p>那么接下来就是解决：文件对象 -&gt; URL</p><p>在了解了 HTML5 Web API 过后，我们知道 HTML5 提供了两种办法：</p><ol start='' ><li>Object URL</li><li>FileReader</li></ol><p>后续会详细学习到这些，我们这里通过 Object URL 解决目前这个问题，在页面中加入一段 JavaScript 代码：</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="js"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 40px;"></div><div class="CodeMirror-hscrollbar" style="left: 36px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 36px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>10</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 当文件域文件选择发生改变过后，本地预览选择的图片</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">$</span>(<span class="cm-string">'#feature'</span>).<span class="cm-property">on</span>(<span class="cm-string">'change'</span>, <span class="cm-keyword">function</span> () {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-keyword">var</span> <span class="cm-def">file</span> <span class="cm-operator">=</span> <span class="cm-variable">$</span>(<span class="cm-keyword">this</span>).<span class="cm-property">prop</span>(<span class="cm-string">'files'</span>)[<span class="cm-number">0</span>]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// 为这个文件对象创建一个 Object URL</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-keyword">var</span> <span class="cm-def">url</span> <span class="cm-operator">=</span> <span class="cm-variable">URL</span>.<span class="cm-property">createObjectURL</span>(<span class="cm-variable-2">file</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// url =&gt; blob:http://zce.me/65a03a19-3e3a-446a-9956-e91cb2b76e1f</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// 不用奇怪 BLOB: binary large object block</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-comment">// 将图片元素显示到界面上（预览）</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable">$</span>(<span class="cm-keyword">this</span>).<span class="cm-property">siblings</span>(<span class="cm-string">'.thumbnail'</span>).<span class="cm-property">attr</span>(<span class="cm-string">'src'</span>, <span class="cm-variable-2">url</span>).<span class="cm-property">fadeIn</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=""><span style="padding-right: 0.1px;">})</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 275px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><blockquote><p>🚩 源代码: step-44</p></blockquote><blockquote><p>✏️ 作业：
+尝试使用一些 jQuery 插件，提高图片上传过程的体验</p></blockquote><h3><a name='header-c233' class='md-header-anchor '></a>文章 URL 预览</h3><p>没什么好说的，直接看结果</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="js"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>4</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// slug 预览</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">$</span>(<span class="cm-string">'#slug'</span>).<span class="cm-property">on</span>(<span class="cm-string">'input'</span>, <span class="cm-keyword">function</span> () {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-variable">$</span>(<span class="cm-keyword">this</span>).<span class="cm-property">next</span>().<span class="cm-property">children</span>().<span class="cm-property">text</span>(<span class="cm-variable">$</span>(<span class="cm-keyword">this</span>).<span class="cm-property">val</span>())</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">4</div></div><pre class=""><span style="padding-right: 0.1px;">})</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 100px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p>slug 是一个专有名词，用于表示 URL 中辨别标识，就是 ID 的作用，只是比 ID 更友好，更美观
+例如：</p><ul><li><a href='https://zce.me/category/1' target='_blank' >https://zce.me/category/1</a></li><li><a href='https://zce.me/category/travel' target='_blank' >https://zce.me/category/travel</a></li></ul></blockquote><blockquote><p>🚩 源代码: step-45</p></blockquote><h3><a name='header-c251' class='md-header-anchor '></a>富文本编辑器（Markdown）</h3><ol start='' ><li><p>传统的富文本编辑器（HTML）</p><ul><li><a href='https://www.tinymce.com/'>TinyMCE</a></li><li><a href='http://ckeditor.com/'>CKEditor</a></li><li><a href='http://ueditor.baidu.com/website/'>UEditor</a></li></ul></li><li><p>Markdown 编辑器</p><ul><li><a href='https://simplemde.com/'>SimpleMDE</a></li></ul></li></ol><p>具体使用方式，参考官方示例即可。</p><p>注意：autoDownloadFontAwesome 选项</p><blockquote><p>🚩 源代码: step-46</p></blockquote><blockquote><p>✏️ 作业：
+自学 Markdown，思考 Markdown 的优势。
+说明: 必须学，一个开发者的基本素质，一手格式良好的 Markdown，不解释</p></blockquote><h3><a name='header-c285' class='md-header-anchor '></a>初始化时间</h3><p>由于 <code>&lt;input type=&quot;datetime-local&quot;&gt;</code> 标签的 <code>value</code> 属性要求是一个 <code>yyyy-MM-ddThh:mm</code> 格式的字符串，原生 JavaScript 格式化时间特别麻烦，我们可以通过社区提供的一个开源库 <a href='http://momentjs.com'>moment.js</a> 解决。</p><pre class="md-fences md-end-block md-fences-with-lineno" lang="js"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 31px;"></div><div class="CodeMirror-hscrollbar" style="left: 27px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>2</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 发布时间初始值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">2</div></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">$</span>(<span class="cm-string">'#created'</span>).<span class="cm-property">val</span>(<span class="cm-variable">moment</span>().<span class="cm-property">format</span>(<span class="cm-string">'YYYY-MM-DDTHH:mm'</span>))</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="height: 50px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p>🚩 源代码: step-47</p></blockquote><blockquote><p>✏️ 作业：
+将表单中发布时间元素改为第三方提供的时间选择器插件。
+参考: <a href='https://eonasdan.github.io/bootstrap-datetimepicker/' target='_blank' >https://eonasdan.github.io/bootstrap-datetimepicker/</a></p></blockquote></div>
+</body>
+</html>

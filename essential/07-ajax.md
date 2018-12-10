@@ -12,7 +12,9 @@
 - 特定元素的 href 或 src 属性
 - 表单提交
 
-这些方案都是我们无法通过或者很难通过代码的方式进行编程，**如果我们可以通过 JavaScript 直接发送网络请求，那么 Web 的可能就会更多，随之能够实现的功能也会更多，至少不再是“单机游戏”。**
+这些方案都是我们无法通过或者很难通过代码的方式进行编程（对服务端发出请求并且接受服务端返回的响应），**如果我们可以通过 JavaScript 直接发送网络请求，那么 Web 的可能就会更多，随之能够实现的功能也会更多，至少不再是“单机游戏”。**
+
+> 对 XXX 进行编程指的就是用代码的方式操作它。
 
 AJAX（Asynchronous JavaScript and XML），最早出现在 2005 年的 [Google Suggest](http://google-suggest.tumblr.com/)，是在浏览器端进行网络编程（发送请求、接收响应）的技术方案，它使我们可以通过 JavaScript 直接获取服务端最新的内容而不必重新加载页面。让 Web 更能接近桌面应用的用户体验。
 
@@ -53,29 +55,71 @@ xhr.onreadystatechange = function () {
 | 3          | LOADING          | 响应体下载中， `responseText` 属性可能已经包含部分数据。 |
 | 4          | DONE             | 响应体下载完成，可以直接使用 `responseText`。       |
 
+#### 时间轴
+
+```flow
+s=>start: UNSENT
+o1=>operation: OPENED
+o2=>operation: HEADERS_RECEIVED
+o3=>operation: LOADING
+e=>end: DONE
+
+s(right)->o1(right)->o2(right)->o3(right)->e
+```
+
+```flow
+s=>start: 初始化
+o1=>operation: 建立连接
+o2=>operation: 接收到响应头
+o3=>operation: 响应体加载中
+e=>end: 加载完成
+
+s(right)->o1(right)->o2(right)->o3(right)->e
+```
+
 ```javascript
 var xhr = new XMLHttpRequest()
-// 代理（XHR）被创建，但尚未调用 open() 方法。
 console.log(xhr.readyState)
 // => 0
+// 初始化 请求代理对象
 
-xhr.open('GET', './time.php')
-
-// open() 方法已经被调用，建立了连接。
+xhr.open('GET', 'time.php')
 console.log(xhr.readyState)
 // => 1
+// open 方法已经调用，建立一个与服务端特定端口的连接
 
-xhr.send(null)
+xhr.send()
 
-xhr.onreadystatechange = function () {
-  console.log(this.readyState)
-  // send() 方法已经被调用，并且已经可以获取状态行和响应头。
-  // => 2
-  // 响应体下载中， responseText 属性可能已经包含部分数据。
-  // => 3
-  // 响应体下载完成，可以直接使用 responseText。
-  // => 4
-}
+xhr.addEventListener('readystatechange', function () {
+  switch (this.readyState) {
+    case 2:
+      // => 2
+      // 已经接受到了响应报文的响应头
+
+      // 可以拿到头
+      // console.log(this.getAllResponseHeaders())
+      console.log(this.getResponseHeader('server'))
+      // 但是还没有拿到体
+      console.log(this.responseText)
+      break
+
+    case 3:
+      // => 3
+      // 正在下载响应报文的响应体，有可能响应体为空，也有可能不完整
+
+      // 在这里处理响应体不保险（不可靠）
+      console.log(this.responseText)
+      break
+
+    case 4:
+      // => 4
+      // 一切 OK （整个响应报文已经完整下载下来了）
+
+      // 这里处理响应体
+      console.log(this.responseText)
+      break
+  }
+})
 ```
 
 通过理解每一个状态值的含义得出一个结论：一般我们都是在 `readyState` 值为 `4` 时，执行响应的后续逻辑。
@@ -108,7 +152,7 @@ xhr.onreadystatechange = function () {
     console.log(this.statusText)
     // 获取响应头信息
     console.log(this.getResponseHeader('Content-Type')) // 指定响应头
-    console.log(this.getAllResponseHeader()) // 全部响应头
+    console.log(this.getAllResponseHeaders()) // 全部响应头
     // 获取响应体
     console.log(this.responseText) // 文本形式
     console.log(this.responseXML) // XML 形式，了解即可不用了
@@ -196,14 +240,16 @@ console.log('before ajax')
 var xhr = new XMLHttpRequest()
 // 同步方式
 xhr.open('GET', './time.php', false)
-// 同步方式 执行需要 先注册事件再调用 send，否则 readystatechange 无法触发
-xhr.onreadystatechange = function () {
-  if (this.readyState === 4) {
-    // 这里的代码最后执行
-    console.log('request done')
-  }
-}
+// // 同步方式 执行需要 先注册事件再调用 send，否则 readystatechange 无法触发
+// xhr.onreadystatechange = function () {
+//   if (this.readyState === 4) {
+//     // 这里的代码最后执行
+//     console.log('request done')
+//   }
+// }
 xhr.send(null)
+// 因为 send 方法执行完成 响应已经下载完成
+console.log(xhr.responseText)
 console.log('after ajax')
 ```
 
@@ -237,9 +283,13 @@ console.log('after ajax')
 
 服务端采用 JSON 格式返回数据，客户端按照 JSON 格式解析数据。
 
-
-
-> 不管是 JSON 也好，还是 XML，只是在 AJAX 请求过程中用到，并不代表它们之间有必然的联系，它们只是数据协议罢了
+> **注意**：
+>
+> 不管是 JSON 也好，还是 XML，只是在 AJAX 请求过程中用到，并不代表它们之间有必然的联系，它们只是数据协议罢了。
+>
+> 不管服务端是采用 XML 还是采用 JSON 本质上都是将数据返回给客户端
+>
+> 服务端应该设置一个合理的 Content-Type
 
 ### 处理响应数据渲染
 
@@ -254,44 +304,249 @@ console.log('after ajax')
 XMLHttpRequest 在老版本浏览器（IE5/6）中有兼容问题，可以通过另外一种方式代替
 
 ```javascript
-var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
+var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 ```
 
 ## 封装
 
 ### AJAX 请求封装
 
+> 函数就可以理解为一个想要做的事情，函数体中约定了这件事情做的过程，直到调用时才开始工作。
+>
+> 将函数作为参数传递就像是将一个事情交给别人，这就是委托的概念
 
+```javascript
+/**
+ * 发送一个 AJAX 请求
+ * @param  {String}   method 请求方法
+ * @param  {String}   url    请求地址
+ * @param  {Object}   params 请求参数
+ * @param  {Function} done   请求完成过后需要做的事情（委托/回调）
+ */
+function ajax (method, url, params, done) {
+  // 统一转换为大写便于后续判断
+  method = method.toUpperCase()
 
-### jQuery.ajax
+  // 对象形式的参数转换为 urlencoded 格式
+  var pairs = []
+  for (var key in params) {
+    pairs.push(key + '=' + params[key])
+  }
+  var querystring = pairs.join('&')
 
+  var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 
+  xhr.addEventListener('readystatechange', function () {
+    if (this.readyState !== 4) return
+
+    // 尝试通过 JSON 格式解析响应体
+    try {
+      done(JSON.parse(this.responseText))
+    } catch (e) {
+      done(this.responseText)
+    }
+  })
+
+  // 如果是 GET 请求就设置 URL 地址 问号参数
+  if (method === 'GET') {
+    url += '?' + querystring
+  }
+
+  xhr.open(method, url)
+
+  // 如果是 POST 请求就设置请求体
+  var data = null
+  if (method === 'POST') {
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    data = querystring
+  }
+  xhr.send(data)
+}
+
+ajax('get', './get.php', { id: 123 }, function (data) {
+  console.log(data)
+})
+
+ajax('post', './post.php', { foo: 'posted data' }, function (data) {
+  console.log(data)
+})
+```
+
+### jQuery 中的 AJAX
+
+jQuery 中有一套专门针对 AJAX 的封装，功能十分完善，经常使用，需要着重注意。
+
+> 一个你会用我会用他会用到的点，就一定有一个已经封装好的
+
+> 参考：
+>
+> - http://www.jquery123.com/category/ajax/
+> - http://www.w3school.com.cn/jquery/jquery_ref_ajax.asp
+
+#### $.ajax
+
+```javascript
+$.ajax({
+  url: './get.php',
+  type: 'get',
+  dataType: 'json',
+  data: { id: 1 },
+  beforeSend: function (xhr) {
+    console.log('before send')
+  },
+  success: function (data) {
+    console.log(data)
+  },
+  error: function (xhr) {
+    console.log(xhr)
+  },
+  complete: function (xhr) {
+    console.log('request completed')
+  }
+})
+```
+
+常用选项参数介绍：
+
+- url：请求地址
+- type：请求方法，默认为 `get`
+- dataType：服务端响应数据类型
+- contentType：请求体内容类型，默认 `application/x-www-form-urlencoded`
+- data：需要传递到服务端的数据，如果 GET 则通过 URL 传递，如果 POST 则通过请求体传递
+- timeout：请求超时时间
+- beforeSend：请求发起之前触发
+- success：请求成功之后触发（响应状态码 200）
+- error：请求失败触发
+- complete：请求完成触发（不管成功与否）
+
+#### $.get
+
+GET 请求快捷方法
+
+`$.get(url, data, callback)`
+
+#### $.post
+
+POST 请求快捷方法
+
+`$.post(url, data, callback)`
+
+#### 全局事件处理
+
+> http://www.jquery123.com/category/ajax/global-ajax-event-handlers/
+
+#### 自学内容（作业）
+
+- `$(selector).load()`
+- `$.getJSON()`
+- `$.getScript()`
+
+简单概括以上方法的作用和基本用法。
 
 ## 跨域
 
 ### 相关概念
 
+同源策略是浏览器的一种安全策略，所谓同源是指**域名**，**协议**，**端口**完全相同，只有同源的地址才可以相互通过 AJAX 的方式请求。
 
+同源或者不同源说的是两个地址之间的关系，不同源地址之间请求我们称之为**跨域请求**
+
+什么是同源？例如：http://www.example.com/detail.html 与一下地址对比
+
+| 对比地址                                     | 是否同源 | 原因      |
+| ---------------------------------------- | ---- | ------- |
+| http://api.example.com/detail.html       | 不同源  | 域名不同    |
+| https://www.example.com/detail.html      | 不同源  | 协议不同    |
+| http://www.example.com:8080/detail.html  | 不同源  | 端口不同    |
+| http://api.example.com:8080/detail.html  | 不同源  | 域名、端口不同 |
+| https://api.example.com/detail.html      | 不同源  | 协议、域名不同 |
+| https://www.example.com:8080/detail.html | 不同源  | 端口、协议不同 |
+| http://www.example.com/other.html        | 同源   | 只是目录不同  |
 
 ### 解决方案
 
+现代化的 Web 应用中肯定会有不同源的现象，所以必然要解决这个问题，从而实现跨域请求。
 
+> 参考：http://rickgray.me/solutions-to-cross-domain-in-browser
+>
 
 #### JSONP
 
+**JSON** with **P**adding，是一种借助于 `script` 标签发送跨域请求的技巧。
 
+其原理就是在客户端借助 `script` 标签请求服务端的一个动态网页（php 文件），服务端的这个动态网页返回一段带有函数调用的 JavaScript 全局函数调用的脚本，将原本需要返回给客户端的数据传递进去。
+
+以后绝大多数情况都是采用 JSONP 的手段完成不同源地址之间的跨域请求
+
+客户端 http://www.zce.me/users-list.html
+
+```html
+<script src="http://api.zce.me/users.php?callback=foo"></script>
+```
+
+服务端 http://api.zce.me/users.php?callback=foo 返回的结果
+
+```javascript
+foo(['我', '是', '你', '原', '本', '需', '要', '的', '数', '据'])
+```
+
+**总结一下**：由于 XMLHttpRequest 无法发送不同源地址之间的跨域请求，所以我们必须要另寻他法，script 这种方案就是我们最终选择的方式，我们把这种方式称之为 JSONP，如果你不了解原理，先记住怎么用，多用一段时间再来看原理。
+
+问题：
+
+1. JSONP 需要服务端配合，服务端按照客户端的要求返回一段 JavaScript 调用客户端的函数
+2. 只能发送 GET 请求
+
+> 注意：JSONP 用的是 script 标签，更 AJAX 提供的 XMLHttpRequest 没有任何关系！！！
+
+jQuery 中使用 JSONP 就是将 dataType 设置为 jsonp
+
+其他常见的 AJAX 封装 库：
+
+- Axios
 
 #### CORS
 
+Cross Origin Resource Share，跨域资源共享
 
+```php
+// 允许远端访问
+header('Access-Control-Allow-Origin: *');
+```
 
-## XHR 2.0
+这种方案无需客户端作出任何变化（客户端不用改代码），只是在被请求的服务端响应的时候添加一个 `Access-Control-Allow-Origin` 的响应头，表示这个资源是否允许指定域请求。
+
+> https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS
+
+## XMLHttpRequest 2.0
 
 > 暂作了解，无需着重看待
 
+HTML5 中对 XMLHttpRequest 类型全面升级，更易用，更强大
+
 ### onload / onprogress
 
+```javascript
+var xhr = new XMLHttpRequest()
+xhr.open('GET', './time.php')
+xhr.onload = function () {
+  // onload readyState === 4
+  console.log(this.readyState)
+}
+xhr.onprogress = function () {
+  // onprogress readyState === 3
+  console.log(this.readyState)
+}
+xhr.send(null)
+```
+
 ### FormData
+
+以前 AJAX 操作只能提交字符串，现在可以提交 二进制 的数据
+
+### 案例
+
+异步上传文件
 
 ## 参考链接
 

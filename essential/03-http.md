@@ -20,8 +20,8 @@ Web 属于 B/S 架构的应用软件，在 B/S 架构中，浏览器与服务器
 ### 约定内容
 
 - 请求 / 响应报文格式
-- 请求方法 —— GET / POST
-- 响应状态 —— 200 / 404 / 302 / 304
+- 请求方法 —— GET / POST / etc.
+- 响应状态 —— 200 / 404 / 302 / 304 / etc.
 - 预设的请求 / 响应头
 
 ### 约定形式
@@ -29,7 +29,7 @@ Web 属于 B/S 架构的应用软件，在 B/S 架构中，浏览器与服务器
 1. 客户端通过随机端口与服务端某个固定端口（一般为80）**建立连接** 三次握手
 2. 客户端通过这个连接**发送请求**到服务端（这里的请求是名词）
 3. 服务端监听端口得到的客户端发送过来的请求
-4. 服务端通过连接响应给客户端状态和内容
+4. 服务端通过连接响应给客户端状态和内容（响应报文）
 
 > 要求：接下来的一个月，每次上网打开任何一个页面时都要能够脑补这个画面，默念这个流程。
 
@@ -89,7 +89,7 @@ HTTP 协议版本 + 空格 + 状态码 + 空格 + 状态描述
 | Content-Length | 响应的内容大小    |
 | Set-Cookie     | 让客户端设置一个小票 |
 
-如果需要在程序中设置自定义的响应头（不是预设的），建议使用 X-Property-Name
+如果需要在程序中设置自定义的响应头（不是预设的），建议使用 `X-<Property-Name>` 规则
 
 ##### 响应体
 
@@ -100,7 +100,7 @@ HTTP 协议版本 + 空格 + 状态码 + 空格 + 状态描述
 - 设置响应文件类型
 
   - `header('Content-Type: text/css');`
-  - HTTP MIME type 指的就是 像 text/css text/html text/plain applcation/javascript
+  - 常见的 HTTP MIME type：`text/css` `text/html` `text/plain` `applcation/javascript`
 
 - 重定向（跳转到其他网页）
 
@@ -152,6 +152,8 @@ HTTP 协议版本 + 空格 + 状态码 + 空格 + 状态描述
 > 了解即可，不用刻意去记忆，用多了自然就忘不了。
 >
 > http://www.w3school.com.cn/tags/html_ref_httpmessages.asp
+>
+> https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status
 
 状态代码由三位数字组成，第一个数字定义了响应的类别，且有五种可能取值。
 
@@ -170,3 +172,7 @@ HTTP 协议版本 + 空格 + 状态码 + 空格 + 状态描述
 - 404 Not Found：请求资源不存在，举个例子：输入了错误的URL。
 - 500 Internal Server Error：服务器发生不可预期的错误。
 - 503 Server Unavailable：服务器当前不能处理客户端的请求，一段时间后可能恢复正常。
+
+
+
+https://segmentfault.com/a/1190000006689767

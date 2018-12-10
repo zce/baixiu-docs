@@ -4,7 +4,7 @@
 
 传统的网页大多数的作用都是展示数据，就是将信息传递给用户。而在现代化的 Web 开发中，非常注重信息交互，所以表单也随处可见，只是形式上变成网页，性质上还是一模一样的。主要的作用任然是**收集指定的用户信息**。
 
-> 信息交互：例如[简书](http://www.jianshu.com)这个平台，除了展示文章（展示信息），还可以发布文章（收集信息）
+> 信息交互：例如 [简书](http://www.jianshu.com) 这个平台，除了展示文章（展示信息），还可以发布文章（收集信息）
 
 ## 表单基本使用
 
@@ -44,8 +44,8 @@ HTML 中有一个专门用于提交数据的标签：`<form>`，通过这个标�
 
 > PHP 中有三个超全局变量专门用来获取表单提交内容：
 >
-> - `$_GET`：用于获取以 GET 方式提交的内容
-> - `$_POST`：用于获取以 POST 方式提交的内容
+> - `$_GET`：用于获取以 GET 方式提交的内容，更标准的说法：接收 URL 地址问号参数中的数据
+> - `$_POST`：用于获取以 POST 方式提交的内容，更标准的说法：接收 请求体 中的数据
 > - `$_REQUEST`：用于获取 GET 或 POST 方式提交的内容
 
 借助 `$_POST` 或者 `$_REQUEST` 就可以获取到表单提交的内容：
@@ -92,11 +92,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 从效果上来看，两者都可以将数据提交到服务端，但是从实现提交的原理上两者有很大的不同：
 
 - GET
-  - 表单数据是通过 URL 中的 ? 参数传递到服务端的
+  - **表单数据是通过 URL 中的 ? 参数传递到服务端的**
   - 可以在地址栏中看到提交的内容
   - 数据长度有限制，因为 URL 地址长度有限（2000个字符）
 - POST
-  - 表单数据是通过请求体传递到服务端的，我们在界面上看不到
+  - **表单数据是通过请求体传递到服务端的**，我们在界面上看不到
   - 可以提交任何类型的数据，包括文件
   - 由于界面上看不见，浏览器也不储存，所以更安全
 
@@ -133,9 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 > http://php.net/manual/zh/faq.html.php#faq.html.arrays
 
 ```html
-<input type="checkbox" name="funs[]" id="" value="football">
-<input type="checkbox" name="funs[]" id="" value="basketball">
-<input type="checkbox" name="funs[]" id="" value="world peace">
+<input type="checkbox" name="funs[]" value="football">
+<input type="checkbox" name="funs[]" value="basketball">
+<input type="checkbox" name="funs[]" value="world peace">
 ```
 
 最终提交到服务端，通过 `$_POST` 接收到的是一个索引数组。
@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ## 案例
 
-### 基于文件的注册和登录：
+### 基于文件的注册和登录
 
 1. 注册
    1. 用户请求一个注册页面
@@ -165,57 +165,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    7. 如果都正常，则保存到文件中（每个用户一行）
 2. 登录
    1. 自己分析
-
-### 猜数字游戏
-
-> 参考：https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/First_steps/A_first_splash
->
-> 注意：这里是 JavaScript 的实现，经供参考
->
-> 建议：好好看看里面写的一些内容
-
-我想让你创建一个可以猜数字的游戏，它会在1~100以内随机选择一个数, 然后让玩家挑战在10轮以内猜出这个数字，每一轮都要告诉玩家正确或者错误， 如果出错了，则告诉他数字是低了还是高了，并且还要告诉玩家之前猜的数字是什么。 一旦玩家猜测正确，或者他们用完了回合，游戏将结束。 游戏结束后，可以让玩家选择再次开始。
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>猜数字</title>
-  <style>
-    body {
-      padding: 100px 0;
-      background-color: #2b3b49;
-      color: #fff;
-      text-align: center;
-      font-size: 2.5em;
-    }
-    input {
-      padding: 5px 20px;
-      height: 50px;
-      background-color: #3b4b59;
-      border: 1px solid #c0c0c0;
-      box-sizing: border-box;
-      color: #fff;
-      font-size: 20px;
-    }
-    button {
-      padding: 5px 20px;
-      height: 50px;
-      font-size: 16px;
-    }
-  </style>
-</head>
-<body>
-  <h1>猜数字游戏</h1>
-  <p>Hi，我已经准备了一个 0 - 100 的数字，你需要在仅有的 10 机会之内猜对它。</p>
-  <form action="" method="post">
-    <input type="number" min="0" max="100" name="num" placeholder="随便猜">
-    <button type="submit">试一试</button>
-  </form>
-</body>
-</html>
-```
 
 ## 文件上传
 
@@ -404,6 +353,17 @@ JSON（JavaScript Object Notation） 是一种通过普通字符串描述数据�
 
 #### 新增数据（表单类）
 
+```sequence
+客户端->服务端: GET /add.php\n获取一个添加音乐的表单
+服务端->客户端: 响应一个空的表单页面
+Note left of 客户端: 用户填写表单内容
+客户端->服务端: POST /add.php\n提交用户数据的内容和选择的文件
+Note right of 服务端: 接收并处理提交的数据
+服务端->客户端: 跳转回列表页
+```
+
+
+
 - 表单使用（form action method enctype，input name label for id）
 - 服务端表单校验并提示错误消息
   - empty 判断一个成员是否没定义或者值为 false（可以隐式转换为 false）
@@ -426,9 +386,13 @@ JSON（JavaScript Object Notation） 是一种通过普通字符串描述数据�
     <a href="/delete.php?id=123">删除</a>
     ```
 
+- 数组中找到指定元素
+
+  - `array_search`
+
 - 数组移除元素
 
-  - array_splice
+  - `array_splice`
 
 ## 参考链接
 

@@ -1,6 +1,6 @@
 # PHP
 
-> 详细文档：http://php.net/manual/zh/index.php
+> 详细参考文档：http://php.net/manual/zh/index.php
 
 ## 起步
 
@@ -91,7 +91,7 @@ PHP（PHP: Hypertext Preprocessor）是一种被广泛应用的脚本语言，�
 
 ### 输出内容方式
 
-- echo
+- echo：
 
   ```php
   <?php
@@ -113,7 +113,17 @@ PHP（PHP: Hypertext Preprocessor）是一种被广泛应用的脚本语言，�
   // => Parse error: syntax error ...
   ```
 
-> 还有一些输出函数（可以通过查手册自学，用到再说），例如：var_dump(); print_r();
+- var_dump：
+
+  ```php
+  <?php
+  // var_dump 是一个函数，必须跟上 () 调用
+  // 可以将数据以及数据的类型打印为特定格式
+  var_dump('hello php');
+  // => 'string(9) "hello php"'
+  ```
+
+> 还有一些输出函数（可以通过查手册自学，用到再说），例如：`exit()` / `print_r()` 等等
 
 ### 与 HTML 混编
 
@@ -152,9 +162,8 @@ PHP（PHP: Hypertext Preprocessor）是一种被广泛应用的脚本语言，�
   ```php
   <?php
   // 这是一条单行注释
-  # 井号也可以做注释（不要用）
+  # 井号也可以做注释（不要用，有点生僻）
   $foo = 'hello';
-  ?>
   ```
 
 - 多行注释
@@ -167,22 +176,30 @@ PHP（PHP: Hypertext Preprocessor）是一种被广泛应用的脚本语言，�
   ......
   */
   $foo = 'hello';
-  ?>
   ```
 
 ## 语法
 
 编程语言常见的语法
 
-- 用于临时存放数据的容器 --- 变量
-- 如果怎样就怎样否则怎样 --- 分支
-- 不断的做某件相同的事   --- 循环
-- 先干什么再干什么      --- 顺序结构
-- 提前设计好一件事怎么干 --- 函数
-- 运算符 - 
-- 字面量 - 在代码中用某些字符组成 能够表达一个具体的值 这种字符就称之为字面量
+- 变量 —— 用于临时存放数据的容器
+- 顺序结构 —— 先干什么再干什么
+- 分支结构 —— 如果怎样就怎样否则怎样
+- 循环结构 —— 不断的做某件相同的事
+- 函数 —— 提前设计好一件事怎么干，然后想什么时候干就什么时候干
+- 运算符 —— 数学运算和字符串拼接
+- 字面量 —— 在代码中用某些字符组成，能够表达一个具体的值 这些字符之间表示数据的方式叫做字面量
 
 PHP 也是另外种编程语言，作为另外一种编程语言，PHP 也具备着绝大多数语言都有的特点，例如变量、条件分支、循环、函数等等，不同的是每个语言都会有自己的语法规定。这里不用太过担心，这些语法规定与之前学习的编程语言大同小异，对我们来说不会有太大的压力。
+
+以下是重点注意的问题：
+
+1. 变量
+2. 双引号字符串和单引号字符串的差异
+3. 指令式的语法
+4. foreach
+5. 函数作用域问题
+6. 字符串拼接
 
 ### 变量
 
@@ -204,13 +221,15 @@ fn($bar); // 将一个变量名为 `foo` 的变量作为 `fn` 的实参传递
 
 常见的 PHP 数据类型与 JavaScript 基本一致：
 
-- string
-- integer --- 整型
-- float     --- 浮点型
-- boolean
-- array
-- object
-- NULL
+- string（字符串）
+- integer（整型）—— 只能存整数
+- float（浮点型）—— 可以存带小数位的数字
+- boolean（布尔型）
+- array（数组）
+- object（对象）
+- NULL（空）
+- Resource（资源类型）
+- Callback / Callable（回调或者叫可调用类型）
 
 ##### 字符串
 
@@ -260,11 +279,11 @@ PHP 中数组可以分为两类：
   <?php
   // 定义一个索引数组
   $arr = array(1, 2, 3, 4, 5);
-  print_r($arr);
+  var_dump($arr);
 
   // PHP 5.4 以后定义的方式可以用 `[]`
   $arr2 = [1, 2, 3, 4, 5];
-  print_r($arr2);
+  var_dump($arr2);
   ```
 
 - 关联数组
@@ -275,20 +294,29 @@ PHP 中数组可以分为两类：
   <?php
   // 注意：键只能是`integer`或者`string`
   $arr = array('key1' => 'value1', 'key2' => 'value2');
-  print_r($arr);
+  var_dump($arr);
 
   // PHP 5.4 以后定义的方式可以用 `[]`
   $arr2 = ['key1' => 'value1', 'key2' => 'value2'];
-  print_r($arr2);
+  var_dump($arr2);
   ```
 
 #### 数据类型转换
 
-> http://php.net/manual/zh/language.types.type-juggling.php
+> 参考：http://php.net/manual/zh/language.types.type-juggling.php
+
+```php
+<?php
+$str = '132';
+// 将一个内容为数字的字符串强制转换为一个整形的数字
+$num = (int)$str;
+// 将一个数字强制转换为布尔值
+$flag = (bool)$num;
+```
 
 ### 运算符
 
-数学运算符，逻辑运算符与 JavaScript 基本一致，无特殊情况。
+数学运算符，逻辑运算符与 JavaScript 基本一致，无额外特殊情况。
 
 字符串连接（拼接）采用的是比较特殊的 `.`
 
@@ -334,6 +362,19 @@ $foo .= $message
 
 指令式的 if、for、foreach、while 单独掌握
 
+```php
+<?php
+// 指令式就是将开始 { 换成 :  结束 } 换成 endif;
+if ($i > 0) :
+  echo 'ok'
+endif;
+
+// for foreach while 也是一样
+for ($i = 0; $i < 10; $i++) :
+  echo $i;
+endfor;
+```
+
 ### 函数
 
 定义与使用函数的方式与 JavaScript 相同：
@@ -367,7 +408,7 @@ var top = 'top variable'
 
 function foo () {
   var sub = 'sub variable'
-  
+
   console.log(top)
   // => `top variable`
 
@@ -377,7 +418,7 @@ function foo () {
     console.log(sub)
     // => `sub variable`
   }
-  
+
   bar()
 }
 
@@ -392,14 +433,14 @@ $top = 'top variable';
 
 function foo () {
   $sub = 'sub variable';
-  
+
   echo $top;
   // => 无法拿到
 
   function bar () {
     echo $top;
     // => 无法拿到
-    
+
     echo $sub;
     // => 无法拿到
   }
@@ -419,19 +460,19 @@ $top = 'top variable';
 function foo () {
   // 声明在当前作用域中获取全局作用域中的 `$top`
   global $top;
-  
+
   $sub = 'sub variable';
-  
+
   echo $top;
   // => `top variable`
 
   function bar () {
     // 声明在当前作用域中获取全局作用域中的 `$top` 和 `$bar`
     global $top, $bar;
-    
+
     echo $top;
     // => `top variable`
-    
+
     echo $sub;
     // => 任然无法拿到，因为 `$sub` 不再全局范围，而是在 `foo` 函数中定义
   }
@@ -478,7 +519,7 @@ $y = 25;
 function foo () {
   $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y'];
 }
- 
+
 foo();
 echo $z;
 // => 100
@@ -543,13 +584,17 @@ PHP 中引入其他 PHP 文件有四种方式：
 
 ## 常用 API
 
+> API（Application Programming Interface）
+>
+> 接口都是提供某种特定能力的事物，特点是有输入有输出，而我们在开发时（写代码时）用到的接口称之为 API（应用程序编程接口）
+>
 > 任何编程语言本身并没有太多的能力，具体的能力大多数都来源于 API。
 
 PHP 的能力来源于它有 1000+ 内置函数，不是每一个函数都默认直接可以使用，有一些需要安装或者启用额外的"插件" 扩展
 
 ### 字符串处理
 
-> 宽字符集需要开启 php_mbstring 扩展
+> 宽字符集函数需要开启 `php_mbstring` 扩展
 
 #### 开启 PHP 扩展
 
@@ -580,6 +625,8 @@ PHP 的能力来源于它有 1000+ 内置函数，不是每一个函数都默认
   - `mixed str_replace ( mixed $search , mixed $replace , mixed $subject [, int &$count ] )`
 - 重复字符串
   - `string str_repeat ( string $input , int $multiplier )`
+- 字符串分割
+  - `array explode( string $char, string $input )`
 
 ![1506312179608](media/1506312179608.png)
 
@@ -600,6 +647,8 @@ PHP 的能力来源于它有 1000+ 内置函数，不是每一个函数都默认
   - `count()`
 - 检测存在
   - `in_array()`
+- 获取元素在数组中的下标
+  - `array_search()`
 
 
 
@@ -614,42 +663,28 @@ PHP 的能力来源于它有 1000+ 内置函数，不是每一个函数都默认
 
 ### 文件操作
 
-pathinfo() 文件信息
+| 函数                                       | 描述                      | PHP  |
+| ---------------------------------------- | ----------------------- | ---- |
+| [basename()](http://www.w3school.com.cn/php/func_filesystem_basename.asp) | 返回路径中的文件名部分。            | 3    |
+| [copy()](http://www.w3school.com.cn/php/func_filesystem_copy.asp) | 复制文件。                   | 3    |
+| [dirname()](http://www.w3school.com.cn/php/func_filesystem_dirname.asp) | 返回路径中的目录名称部分。           | 3    |
+| [disk_free_space()](http://www.w3school.com.cn/php/func_filesystem_disk_free_space.asp) | 返回目录的可用空间。              | 4    |
+| [disk_total_space()](http://www.w3school.com.cn/php/func_filesystem_disk_total_space.asp) | 返回一个目录的磁盘总容量。           | 4    |
+| [fclose()](http://www.w3school.com.cn/php/func_filesystem_fclose.asp) | 关闭打开的文件。                | 3    |
+| [file()](http://www.w3school.com.cn/php/func_filesystem_file.asp) | 把文件读入一个数组中。             | 3    |
+| [file_exists()](http://www.w3school.com.cn/php/func_filesystem_file_exists.asp) | 检查文件或目录是否存在。            | 3    |
+| [file_get_contents()](http://www.w3school.com.cn/php/func_filesystem_file_get_contents.asp) | 将文件读入字符串。               | 4    |
+| [file_put_contents()](http://www.w3school.com.cn/php/func_filesystem_file_put_contents.asp) | 将字符串写入文件。               | 5    |
+| [filesize()](http://www.w3school.com.cn/php/func_filesystem_filesize.asp) | 返回文件大小。                 | 3    |
+| [fopen()](http://www.w3school.com.cn/php/func_filesystem_fopen.asp) | 打开一个文件或 URL。            | 3    |
+| [glob()](http://www.w3school.com.cn/php/func_filesystem_glob.asp) | 返回一个包含匹配指定模式的文件名/目录的数组。 | 4    |
+| [is_dir()](http://www.w3school.com.cn/php/func_filesystem_is_dir.asp) | 判断指定的文件名是否是一个目录。        | 3    |
+| [is_file()](http://www.w3school.com.cn/php/func_filesystem_is_file.asp) | 判断指定文件是否为常规的文件。         | 3    |
+| [mkdir()](http://www.w3school.com.cn/php/func_filesystem_mkdir.asp) | 创建目录。                   | 3    |
+| [move_uploaded_file()](http://www.w3school.com.cn/php/func_filesystem_move_uploaded_file.asp) | 将上传的文件移动到新位置。           | 4    |
+| [pathinfo()](http://www.w3school.com.cn/php/func_filesystem_pathinfo.asp) | 返回关于文件路径的信息。            | 4    |
+| [rename()](http://www.w3school.com.cn/php/func_filesystem_rename.asp) | 重名名文件或目录。               | 3    |
+| [rmdir()](http://www.w3school.com.cn/php/func_filesystem_rmdir.asp) | 删除空的目录。                 | 3    |
+| [unlink()](http://www.w3school.com.cn/php/func_filesystem_unlink.asp) | 删除文件。                   | 3    |
 
-[basename()](http://www.w3school.com.cn/php/func_filesystem_basename.asp)查找最后一级目
-
-[dirname()](http://www.w3school.com.cn/php/func_filesystem_dirname.asp)查找父级目录
-
-[filesize()](http://www.w3school.com.cn/php/func_filesystem_filesize.asp)读取文件大小
-
-[file_exists()](http://www.w3school.com.cn/php/func_filesystem_file_exists.asp)检查文件是否存在
-
-[is_dir()](http://www.w3school.com.cn/php/func_filesystem_is_dir.asp)是否为目录
-
-[is_file()](http://www.w3school.com.cn/php/func_filesystem_is_file.asp)是否为文件
-
-realpath() 绝对路径
-
-rename() 修改文件名
-
-[file_get_contents()](http://www.w3school.com.cn/php/func_filesystem_file_get_contents.asp)读取文件
-
-[file_put_contents()](http://www.w3school.com.cn/php/func_filesystem_file_put_contents.asp)写入文件
-
-[move_uploaded_file()](http://www.w3school.com.cn/php/func_filesystem_move_uploaded_file.asp)文件上传
-
-copy() 复制文件
-
-unlink() 删除文件
-
-mkdir() 创建目录
-
-rmdir() 删除空目录
-
-opendir 打开目录
-
-readdir 读取目录
-
-closedir 关闭目录
-
-scandir 查找指定目录文件及子目录
+> 参考：http://www.w3school.com.cn/php/php_ref_filesystem.asp

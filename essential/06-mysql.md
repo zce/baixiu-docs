@@ -74,7 +74,7 @@ MySQL 的安装同样建议采用解压版（目的是了解那些自动安装�
    $ mysql -u root -p
    Enter password: # 输入临时密码
 
-   # 设置数据库访问密码
+   # 设置数据库访问密码，一定要加分号
    mysql> set password for root@localhost = password('123');
    ```
 
@@ -129,6 +129,8 @@ mysql> exit|quit;  -- 退出数据库终端
 ### 基本概念
 
 - 数据库
+  - 数据库服务软件
+  - 数据的仓库
 - 表
 - 字段 —— 指的就是列
 - 字段类型 —— 指的就是列能够存储的数据种类
@@ -148,6 +150,7 @@ mysql> exit|quit;  -- 退出数据库终端
 -- 查询数据
 -- select 字段[, 字段2] from 表名
 select id, name, birthday from users;
+select `id`, `title`, `name` from `users`;
 
 -- 通配 * 找到表中所有列
 select * from users;
@@ -158,9 +161,10 @@ select * from users;
 ```sql
 -- 新增数据
 -- 插入全部字段
-insert into users value (null, '王五', 0, '2020-12-12', '12312');
+insert into users values (null, '王五', 0, '2020-12-12', '12312');
+
 -- 指定字段
-insert into users (name, gender, avatar) value ('王五', 0, '12312');
+insert into users (name, gender, avatar) values ('王五', 0, '12312');
 ```
 
 #### 修改
@@ -180,7 +184,7 @@ delete from users
 
 #### 筛选条件
 
-子语句
+子语句，意思是不能单独执行，必须配合 删除 修改 查询 语句
 
 ```sql
 delete from users where id = 6
@@ -199,6 +203,14 @@ delete from users where id in (4, 5)
 ```sql
 select fn(field1) from table
 ```
+
+### 分页查询数据
+
+子语句
+
+`limit <skip>, <length>`
+
+`skip = (page - 1) * length`
 
 ## PHP 操作数据库
 
@@ -252,6 +264,8 @@ mysqli_close($connection);
 
 - 增删改数据
 
+
+## 全部配置总结
 
 
 ```

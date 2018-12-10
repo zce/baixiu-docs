@@ -14,10 +14,41 @@ Cookie 就像是在超级市场买东西拿到的小票，由超市（Server）�
 
 ```php
 // 设置 cookie
-setcookie("TestCookie", "hello", time() + 3600);  /* 1 小时过期  */
+setcookie('key1', 'value1');  /* 1 小时过期  */
 // 获取 cookie
-echo $_COOKIE["TestCookie"];
+echo $_COOKIE["key1"];
+// 删除 cookie
+// 原理：设置过期时间为一个过去时间
+setcookie('key1');
+// 传递第三个参数是设置过期时间
+// 不传递就是 会话级别的 Cookie （关闭浏览器就自动删除）
+setcookie('key2', 'value2', time() + 1 * 24 * 60 * 60);
+// 设置作用路径范围
+setcookie('key3', 'value3', time() + 1 * 24 * 60 * 60, '/users');
 ```
+
+#### path
+
+设置 cookie 的作用路径范围
+
+- `/` => 只要是在网站根目录下的所有连接地址中都可访问这个 Cookie
+- `/users` => 只能在 `users` 目录下的路径才能访问
+
+#### domain
+
+设置 cookie 的作用域名范围
+
+- `day-10.io` => 所有的 `day-10.io` 的子域 都可以访问到
+  - `bar.day-10.io` √
+  - `foo.day-10.io` √
+  - `day-11.io` ×
+- `bar.day-10.io` => 所有的 `bar.day-10.io` 的子域 都可以访问到
+  - `a.bar.day-10.io` √
+  - `foo.day-10.io` ×
+
+#### httponly
+
+一旦 cookie 的 httponly 为真，那么只能在服务端获取，JS 无法操作
 
 #### 记住登录名案例
 
@@ -34,7 +65,7 @@ Note right of 服务端: 服务端对提交过来的数据进行校验
 服务端-->客户端: Response Welcome
 Note over 客户端,服务端: ..........
 客户端->服务端: Request GET /login.php
-服务端->客户端: Response 空白表单页面
+服务端->客户端: Response 包含上一次使用的登录名的表单页面
 ```
 
 
@@ -74,7 +105,7 @@ https://github.com/js-cookie/js-cookie
 
 由于 Cookie 是服务端下发给客户端**由客户端本地保存**的。换而言之客户端可以在本地对其随意操作，包括删除和修改。如果客户端随意伪造一个 Cookie 的话，对于服务端是无法辨别的，就会造成服务端被蒙蔽，构成安全隐患。
 
-于是乎就有了另外一种基于 Cookie 基础之上的手段：**Session**：
+于是乎就有了另外一种基于 Cookie 基础之上的手段：**Session**
 
 ![session-structure](media/session-structure.png)
 
@@ -85,3 +116,56 @@ Session 这种机制会更加适合于存放一些属于用户而又不能让用
 ![session-flow](media/session-flow.png)
 
 > http://php.net/manual/zh/session.examples.basic.php
+
+
+
+### 猜数字游戏
+
+> 参考：https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/First_steps/A_first_splash
+>
+> 注意：这里是 JavaScript 的实现，经供参考
+>
+> 建议：好好看看里面写的一些内容
+
+我想让你创建一个可以猜数字的游戏，它会在 1~100 以内随机选择一个数, 然后让玩家挑战在10轮以内猜出这个数字，每一轮都要告诉玩家正确或者错误， 如果出错了，则告诉他数字是低了还是高了，并且还要告诉玩家之前猜的数字是什么。 一旦玩家猜测正确，或者他们用完了回合，游戏将结束。 游戏结束后，可以让玩家选择再次开始。
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>猜数字</title>
+  <style>
+    body {
+      padding: 100px 0;
+      background-color: #2b3b49;
+      color: #fff;
+      text-align: center;
+      font-size: 2.5em;
+    }
+    input {
+      padding: 5px 20px;
+      height: 50px;
+      background-color: #3b4b59;
+      border: 1px solid #c0c0c0;
+      box-sizing: border-box;
+      color: #fff;
+      font-size: 20px;
+    }
+    button {
+      padding: 5px 20px;
+      height: 50px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>猜数字游戏</h1>
+  <p>Hi，我已经准备了一个 0 - 100 的数字，你需要在仅有的 10 机会之内猜对它。</p>
+  <form action="" method="post">
+    <input type="number" min="0" max="100" name="num" placeholder="随便猜">
+    <button type="submit">试一试</button>
+  </form>
+</body>
+</html>
+```
